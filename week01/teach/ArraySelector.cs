@@ -1,3 +1,6 @@
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+
 public static class ArraySelector
 {
     public static void Run()
@@ -11,6 +14,21 @@ public static class ArraySelector
 
     private static int[] ListSelector(int[] list1, int[] list2, int[] select)
     {
-        return [];
+        int array1index = 0;
+        int array2index = 0;
+        var result = new int[select.Length];
+
+        for (int i = 0; i < select.Length; i++)
+        {
+            if (select[i] == 1)
+            {
+                result[i] = list1[array1index++];
+            }
+            else
+            {
+                result[i] = list2[array2index++];
+            }
+        }
+        return result;
     }
 }
