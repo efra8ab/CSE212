@@ -52,9 +52,12 @@ public static class Search {
     /// <param name="start">The index of the starting section of the data to look in</param>
     /// <param name="end">The index of the ending section of the data to look in</param>
     private static int SearchSorted2(int[] data, int target, int start, int end) {
+        // [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        // first: start = 0, end = 8
         if (end < start)
             return 1; // All done
         var middle = (end + start) / 2;
+        // first: middle = (8 - 0)/2 --> middle = 4
         if (data[middle] == target)
             return 1; // Found it
         if (data[middle] < target) // Search in the upper half after index middle
