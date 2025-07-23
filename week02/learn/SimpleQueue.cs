@@ -64,10 +64,11 @@
     /// <returns>First integer in the queue</returns>
     private int Dequeue() {
         if (_queue.Count <= 0)
+        {
             throw new IndexOutOfRangeException();
-
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        }
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
