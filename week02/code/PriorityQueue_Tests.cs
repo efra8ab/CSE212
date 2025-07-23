@@ -6,24 +6,56 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Enqueue 3 items with different priorities
+    // Expected Result: Tim, Sue, Bob
+    // Defect(s) Found: At first the Dequeue method was not removing items from the queue
+    // also the priority logic was not correct. This was returning incorrect order and possible duplicates
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+
+        priorityQueue.Enqueue("Bob", 2);
+        priorityQueue.Enqueue("Tim", 5);
+        priorityQueue.Enqueue("Sue", 3);
+
+        string[] expected = { "Tim", "Sue", "Bob" };
+        string[] actual = new string[3];
+
+        for (int i = 0; i < expected.Length; i++)
+        {
+            actual[i] = priorityQueue.Dequeue();
+        }
+
+        CollectionAssert.AreEqual(expected, actual);
+
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
+    // Scenario: Enqueue 3 items with different priorities
+    // Expected Result: Tim, Sue, Bob, Peter, George, Regina
     // Defect(s) Found: 
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+
+        priorityQueue.Enqueue("Bob", 7);
+        priorityQueue.Enqueue("Tim", 10);
+        priorityQueue.Enqueue("Sue", 8);
+        priorityQueue.Enqueue("Peter", 7);
+        priorityQueue.Enqueue("Regina", 1);
+        priorityQueue.Enqueue("George", 2);
+
+        string[] expected = { "Tim", "Sue", "Bob", "Peter", "George", "Regina" };
+        string[] actual = new string[6];
+
+        for (int i = 0; i < expected.Length; i++)
+        {
+            actual[i] = priorityQueue.Dequeue();
+        }
+
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     // Add more test cases as needed below.
 }
+

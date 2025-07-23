@@ -12,6 +12,12 @@ public class TakingTurnsQueueTests
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
+    //  We are working with LIFO instead of FIFO for queues
+    //  Sue (being the qeueued is the first one being dequeued)
+
+    // correction:
+    //  fixed the Enqueue method in the PersonQueue class 
+    //  to place each new entry at the end of the line
     public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
@@ -44,6 +50,7 @@ public class TakingTurnsQueueTests
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
     // Defect(s) Found: 
+    //  This case had the same issues as case 1... it was all fixed with the same correction
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -86,6 +93,9 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
+    //  The program is not recognizing Tim for having infinite turns and is not being Enqueued
+    // Corrections:
+    //  The problem was on the enqueue for values of 0 and less, there was no logic implemented to handle those cases
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -117,6 +127,7 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
     // Defect(s) Found: 
+    //  Same issue as previous case and corrected implementing logic in GetNextPerson
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
