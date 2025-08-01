@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.VisualBasic;
 
 public static class SetsAndMaps
 {
@@ -22,7 +23,23 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var wordSet = words.ToHashSet();
+        var seenPairs = new HashSet<string>();
+
+        foreach (string word in words)
+        {
+            if (word[0] == word[1]) continue;
+
+            var reversed = new string(word.Reverse().ToArray());
+            if (wordSet.Contains(reversed))
+            {
+                var orderedPair = new[] { word, reversed };
+                Array.Sort(orderedPair);
+                seenPairs.Add($"{orderedPair[0]} & {orderedPair[1]}");
+            }
+
+        }
+        return seenPairs.ToArray();
     }
 
     /// <summary>
@@ -43,6 +60,16 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+
+            var degree = fields[3].Trim();
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees[degree] = 1;
+            }
         }
 
         return degrees;
@@ -67,7 +94,32 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        Dictionary<char, int> CharMap(string word)
+        {
+            var map = new Dictionary<char, int>();
+            foreach (char c in word.ToLower())
+            {
+                if (c == ' ') continue;
+
+                if (map.ContainsKey(c))
+                    map[c]++;
+                else
+                    map[c] = 1;
+            }
+            return map;
+        }
+        var map1 = CharMap(word1);
+        var map2 = CharMap(word2);
+
+        if (map1.Count != map2.Count)
+            return false;
+
+        foreach (var kvp in map1)
+        {
+            if (!map2.TryGetValue(kvp.Key, out int count) || count != kvp.Value)
+                return false;
+        }
+        return true;
     }
 
     /// <summary>
